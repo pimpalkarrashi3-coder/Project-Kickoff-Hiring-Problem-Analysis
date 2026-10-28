@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HireSmart Project Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f5;--surface:#fff;--ink:#14213d;--muted:#5b6778;--line:#d5dce4;--teal:#0f766e;--teal-soft:#d9f0ed;--amber:#a15c07;--amber-soft:#fbeed6;--col:#e3e9ee;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--surface:#172232;--ink:#e8eef5;--muted:#9aa8b9;--line:#2a3a4f;--teal:#4fd1c5;--teal-soft:#12403f;--amber:#f0b55a;--amber-soft:#3d2d12;--col:#122030;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1621;--surface:#172232;--ink:#e8eef5;--muted:#9aa8b9;--line:#2a3a4f;--teal:#4fd1c5;--teal-soft:#12403f;--amber:#f0b55a;--amber-soft:#3d2d12;--col:#122030;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Public Sans",system-ui,sans-serif}
+main{max-width:1200px;margin:0 auto;padding:28px 20px 48px}
+h1,h2{font-family:"Bricolage Grotesque","Public Sans",system-ui,sans-serif;margin:0}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.1}
+.sub{color:var(--muted);max-width:60ch;margin:8px 0 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:24px 0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.kpi label{display:block;color:var(--muted);font-size:.85rem}
+.kpi input{width:100%;border:0;border-bottom:1px dashed var(--line);background:transparent;color:var(--ink);font:600 1.5rem "Bricolage Grotesque",sans-serif;padding:4px 0}
+.kpi .goal{font-size:.8rem;color:var(--muted);margin-top:4px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.bar select,.bar input,.bar button{font:inherit;padding:8px 12px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.bar button{background:var(--teal);color:#fff;border-color:var(--teal);cursor:pointer;font-weight:600}
+:root[data-theme="dark"] .bar button{color:#06201e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bar button{color:#06201e}}
+.bar .grow{flex:1;min-width:180px}
+.progress{height:8px;background:var(--col);border-radius:4px;overflow:hidden;margin:0 0 20px}
+.progress i{display:block;height:100%;background:var(--teal);transition:width .3s}
+.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.board{grid-template-columns:1fr}}
+.col{background:var(--col);border-radius:10px;padding:12px;min-height:120px}
+.col h2{font-size:1rem;display:flex;justify-content:space-between;margin-bottom:10px}
+.col h2 span{color:var(--muted);font-family:"Public Sans",sans-serif;font-weight:500}
+.card{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:6px;padding:10px 12px;margin-bottom:10px}
+.card.p2{border-left-color:var(--amber)}.card.p3{border-left-color:#6b5bd2}.card.p4{border-left-color:#c2410c}.card.p5{border-left-color:#475569}
+.card b{display:block;font-weight:600}
+.card small{display:block;color:var(--muted);margin-top:2px}
+.tag{display:inline-block;font-size:.75rem;padding:1px 8px;border-radius:99px;background:var(--teal-soft);color:var(--teal);margin-top:6px}
+.tag.p2{background:var(--amber-soft);color:var(--amber)}
+.acts{display:flex;gap:6px;margin-top:8px}
+.acts button{font:inherit;font-size:.8rem;padding:3px 10px;border-radius:5px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.acts button:focus-visible,.bar *:focus-visible,.kpi input:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+footer{margin-top:28px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+<h1>HireSmart project board</h1>
+<p class="sub">TalentBridge hiring overhaul. Move each task through the board; fill the baselines once the hiring data arrives.</p>
+
+<section class="kpis" aria-label="Baselines">
+<div class="kpi"><label for="k1">Time-to-hire (days)</label><input id="k1" data-k="k1" value="48"><div class="goal">Baseline from the brief</div></div>
+<div class="kpi"><label for="k2">Offer acceptance rate</label><input id="k2" data-k="k2" placeholder="Add from data"><div class="goal">Declining; reverse the trend</div></div>
+<div class="kpi"><label for="k3">Early-exit rate</label><input id="k3" data-k="k3" placeholder="Add from data"><div class="goal">Find causes by source and role</div></div>
+<div class="kpi"><label for="k4">Screening hours per week</label><input id="k4" data-k="k4" placeholder="Add from data"><div class="goal">Target for automation</div></div>
+</section>
+
+<div class="bar">
+<select id="role" aria-label="Filter by owner"><option value="">All owners</option><option>HR Project Lead</option><option>People Data Analyst</option><option>Talent Acquisition Lead</option><option>Employer Brand &amp; Tools Lead</option><option>Candidate Experience Lead</option></select>
+<input id="title" class="grow" placeholder="New task title" aria-label="New task title">
+<button id="add">Add task</button>
+</div>
+<div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+<div class="board" id="board"></div>
+<footer id="foot"></footer>
+</main>
+<script>
+var COLS=["Backlog","In progress","Review","Done"];
+var OWN=["HR Project Lead","People Data Analyst","Talent Acquisition Lead","Employer Brand & Tools Lead","Candidate Experience Lead"];
+var T=[
+["Confirm budget, users and requirements from the brief",0,1,1],
+["Set up Google Drive folders",4,1,3],
+["Set up Notion board and prompt log",3,1,3],
+["Assign the five project roles",0,1,3],
+["Collect and clean hiring data",1,1,0],
+["Calculate KPIs and funnel conversion",1,1,0],
+["Write the one-page insights report",1,1,0],
+["Break down the 48-day time-to-hire by stage",1,2,0],
+["Review offer decline reasons",4,2,0],
+["Analyze early exits by source and role",4,2,0],
+["Compare source quality",3,2,0],
+["Define AI resume-screening criteria and bias checks",2,3,0],
+["Redesign interview scheduling and offer steps",2,3,0],
+["Choose pilot roles and set weekly tracking",0,4,0],
+["Compare pilot to baseline and plan rollout",0,5,0]
+];
+var S={tasks:T.map(function(t,i){return{id:i,t:t[0],o:OWN[t[1]],p:t[2],c:t[3]}}),k:{k1:"48"},n:T.length};
+try{var raw=localStorage.getItem("hiresmart");if(raw){var j=JSON.parse(raw);if(j&&j.tasks)S=j}}catch(e){}
+function save(){try{localStorage.setItem("hiresmart",JSON.stringify(S))}catch(e){}}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function render(){
+var f=document.getElementById("role").value,b=document.getElementById("board");b.innerHTML="";
+COLS.forEach(function(name,ci){
+var col=el("div","col"),h=el("h2",null,name),items=S.tasks.filter(function(t){return t.c===ci&&(!f||t.o===f)});
+h.appendChild(el("span",null,String(items.length)));col.appendChild(h);
+items.forEach(function(t){
+var c=el("div","card p"+t.p);c.appendChild(el("b",null,t.t));c.appendChild(el("small",null,t.o));
+c.appendChild(el("span","tag"+(t.p===2?" p2":""),"Phase "+t.p));
+var a=el("div","acts");
+if(t.c>0){var l=el("button",null,"Back");l.onclick=function(){t.c--;save();render()};a.appendChild(l)}
+if(t.c<3){var r=el("button",null,t.c===2?"Mark done":"Move on");r.onclick=function(){t.c++;save();render()};a.appendChild(r)}
+var d=el("button",null,"Delete");d.onclick=function(){S.tasks=S.tasks.filter(function(x){return x!==t});save();render()};a.appendChild(d);
+c.appendChild(a);col.appendChild(c)});
+b.appendChild(col)});
+var done=S.tasks.filter(function(t){return t.c===3}).length,tot=S.tasks.length||1;
+document.getElementById("pbar").style.width=Math.round(done/tot*100)+"%";
+document.getElementById("foot").textContent=done+" of "+S.tasks.length+" tasks done. Phases: 1 Kickoff and analysis, 2 Diagnose, 3 Design, 4 Pilot, 5 Review and rollout.";
+}
+document.getElementById("role").onchange=render;
+document.getElementById("add").onclick=function(){
+var i=document.getElementById("title"),v=i.value.trim();if(!v)return;
+S.tasks.push({id:Date.now(),t:v,o:document.getElementById("role").value||OWN[0],p:1,c:0});i.value="";save();render()};
+document.querySelectorAll(".kpi input").forEach(function(i){
+if(S.k&&S.k[i.dataset.k])i.value=S.k[i.dataset.k];
+i.oninput=function(){S.k=S.k||{};S.k[i.dataset.k]=i.value;save()}});
+render();
+</script>
+</body>
+</html>
